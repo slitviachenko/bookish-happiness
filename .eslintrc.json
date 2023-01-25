@@ -1,0 +1,23 @@
+{
+  "env": {
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "standard",
+    "plugin:jest/recommended",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:jsdoc/recommended",
+    "plugin:node/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "no-trailing-spaces": ["error"]
+  }
+}
