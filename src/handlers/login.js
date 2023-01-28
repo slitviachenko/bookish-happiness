@@ -1,9 +1,7 @@
 'use strict'
 
-const jwt = require('jsonwebtoken')
-const { verifyGoogleToken } = require('../helper')
+const { verifyGoogleToken, getJwtToken } = require('../helper')
 
-const JWT_SECRET = process.env.JWT_SECRET
 const ALLOWED_EMAILS = process.env.ALLOWED_EMAILS.split(',')
 
 const loginHandler = async (req, res) => {
@@ -31,20 +29,18 @@ const loginHandler = async (req, res) => {
       })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'Login was successful.',
-      user: {
+      data: {
         firstName: profile.given_name,
         lastName: profile.family_name,
         picture: profile.picture,
         email: profile.email,
-        token: jwt.sign({ email: profile.email }, JWT_SECRET, {
-          expiresIn: '1d'
-        })
+        token: getJwtToken(profile.email)
       }
     })
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: error?.message || error
     })
   }
